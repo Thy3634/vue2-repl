@@ -2,20 +2,19 @@
   "name": "vue2-repl",
   "version": "0.1.0",
   "description": "Vue3 component for editing Vue2 components",
-  "main": "dist/ssr-stub.js",
-  "module": "dist/vue-repl.js",
+  "main": "dist/vue2-repl.umd.cjs",
+  "module": "dist/vue2-repl.mjs",
   "files": [
     "dist"
   ],
   "types": "dist/repl.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/vue-repl.js",
-      "require": "./dist/ssr-stub.js",
-      "types": "./dist/repl.d.ts"
+      "import": "./dist/vue2-repl.mjs",
+      "types": "./dist/vue2-repl.d.ts",
+      "require": "./dist/vue2-repl.umd.cjs"
     },
-    "./style.css": "./dist/style.css",
-    "./dist/style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
