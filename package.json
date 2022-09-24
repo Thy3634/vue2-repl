@@ -1,0 +1,74 @@
+{
+  "name": "vue2-repl",
+  "version": "0.1.0",
+  "description": "Vue3 component for editing Vue2 components",
+  "main": "dist/ssr-stub.js",
+  "module": "dist/vue-repl.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/repl.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-repl.js",
+      "require": "./dist/ssr-stub.js",
+      "types": "./dist/repl.d.ts"
+    },
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && build:types",
+    "build:types": "vue-tsc -p tsconfig.build.json && api-extractor run -c api-extractor.json && rimraf dist/src",
+    "commit": "pnpm changeset && cz",
+    "prepublish": "pnpm run build && pnpm changeset version",
+    "publish": "pnpm changeset publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/repl.git"
+  },
+  "author": "Evan You",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vuejs/repl/issues"
+  },
+  "homepage": "https://github.com/vuejs/repl#readme",
+  "devDependencies": {
+    "@babel/types": "^7.15.6",
+    "@changesets/cli": "^2.24.4",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@microsoft/api-extractor": "^7.19.2",
+    "@types/codemirror": "^5.60.2",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "@vitejs/plugin-vue": "^3.0.0-beta.0",
+    "codemirror": "^5.62.3",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.24.0",
+    "fflate": "^0.7.3",
+    "hash-sum": "^2.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "rimraf": "^3.0.2",
+    "sucrase": "^3.20.1",
+    "typescript": "^4.5.4",
+    "vite": "^3.0.0-beta.3",
+    "vue": "^3.2.37",
+    "vue-tsc": "^0.34.15",
+    "vue2": "npm:vue@^2.7.10"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.13",
+    "vue2": "npm:vue@^2.7.10"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
+  }
+}
