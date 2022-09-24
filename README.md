@@ -2,7 +2,7 @@
 
 Vue2 SFC REPL as a Vue 3 component. 
 
-inspired by @vue/repl
+highly inspired by @vue/repl
 
 partically compiled by vue/compiler-sfc@3, but use `template` instead
 

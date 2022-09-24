@@ -27,14 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/repl.git"
+    "url": "git+https://github.com/Thy3634/vue2-repl.git"
   },
-  "author": "Evan You",
+  "author": "Thy3634",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vuejs/repl/issues"
+    "url": "https://github.com/Thy3634/vue2-repl/issues"
   },
-  "homepage": "https://github.com/vuejs/repl#readme",
+  "homepage": "https://github.com/Thy3634/vue2-repl#readme",
   "devDependencies": {
     "@babel/types": "^7.15.6",
     "@changesets/cli": "^2.24.4",

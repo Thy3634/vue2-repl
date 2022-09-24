@@ -1,6 +1,5 @@
 import { defineConfig, Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import dts from 'vite-plugin-dts'
 
 const genStub: Plugin = {
   name: 'gen-stub',
@@ -15,11 +14,7 @@ const genStub: Plugin = {
 }
 
 export default defineConfig({
-  plugins: [vue(), genStub, dts({
-    entryRoot: __dirname,
-    outputDir: ['dist'],
-    insertTypesEntry: true
-  })],
+  plugins: [vue(), genStub],
   build: {
     target: 'esnext',
     minify: false,
