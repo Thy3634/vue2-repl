@@ -21,7 +21,8 @@ export default defineConfig({
     lib: {
       entry: './src/index.ts',
       // formats: ['es'],
-      fileName: 'vue-repl'
+      fileName: 'vue2-repl',
+      name: 'Vue2Repl'
     },
     rollupOptions: {
       external: ['vue', 'vue/compiler-sfc']
