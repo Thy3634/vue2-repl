@@ -179,49 +179,51 @@ async function doCompileScript(
   id: string,
   isTS: boolean
 ): Promise<[string, BindingMetadata | undefined] | undefined> {
-  if (descriptor.script || descriptor.scriptSetup) {
-    try {
-      const compiledScript = compileScript(descriptor, {
-        inlineTemplate: true,
-        ...store.options?.script,
-        id,
-        templateOptions: {
-          ...store.options?.template,
-          ssrCssVars: descriptor.cssVars,
-          compilerOptions: {
-            ...store.options?.template?.compilerOptions,
-            expressionPlugins: isTS ? ['typescript'] : undefined
+  try {
+    if (descriptor.script) {
+        const compiledScript = compileScript(descriptor, {
+          inlineTemplate: true,
+          ...store.options?.script,
+          id,
+          templateOptions: {
+            ...store.options?.template,
+            ssrCssVars: descriptor.cssVars,
+            compilerOptions: {
+              ...store.options?.template?.compilerOptions,
+              expressionPlugins: isTS ? ['typescript'] : undefined
+            }
           }
+        })
+
+        let code = ''
+        if (compiledScript.bindings) {
+          code += `\n/* Analyzed bindings: ${JSON.stringify(
+            compiledScript.bindings,
+            null,
+            2
+          )} */`
         }
-      })
+        code +=
+          `\n` +
+          rewriteDefault(
+            compiledScript.content,
+            COMP_IDENTIFIER,
+            isTS ? ['typescript'] : undefined
+          )
 
-      let code = ''
-      if (compiledScript.bindings) {
-        code += `\n/* Analyzed bindings: ${JSON.stringify(
-          compiledScript.bindings,
-          null,
-          2
-        )} */`
-      }
-      code +=
-        `\n` +
-        rewriteDefault(
-          compiledScript.content,
-          COMP_IDENTIFIER,
-          isTS ? ['typescript'] : undefined
-        )
+        if (descriptor.script.lang === 'ts') {
+          code = await transformTS(code)
+        }
 
-      if ((descriptor.script || descriptor.scriptSetup)!.lang === 'ts') {
-        code = await transformTS(code)
-      }
-
-      return [code, compiledScript.bindings]
-    } catch (e: any) {
+        return [code, compiledScript.bindings]
+    } else if (descriptor.scriptSetup) {
+      throw new Error('<script setup> is not supported')
+    } else {
+      return [`\nconst ${COMP_IDENTIFIER} = {}`, undefined]
+    }
+  } catch (e: any) {
       store.state.errors = [e.stack.split('\n').slice(0, 12).join('\n')]
       return
-    }
-  } else {
-    return [`\nconst ${COMP_IDENTIFIER} = {}`, undefined]
   }
 }
 
