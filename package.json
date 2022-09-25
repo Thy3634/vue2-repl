@@ -7,7 +7,7 @@
   "files": [
     "dist"
   ],
-  "types": "dist/repl.d.ts",
+  "types": "dist/vue2-repl.d.ts",
   "exports": {
     ".": {
       "import": "./dist/vue2-repl.mjs",
