@@ -61,10 +61,6 @@ export async function compileFile(
     filename,
     sourceMap: true
   })
-  // if (descriptor.scriptSetup) {
-  //   store.state.errors = ['<script setup> is not supported']
-  //   return
-  // }
   if (errors.length) {
     store.state.errors = errors
     return
@@ -217,7 +213,8 @@ async function doCompileScript(
 
         return [code, compiledScript.bindings]
     } else if (descriptor.scriptSetup) {
-      throw new Error('<script setup> is not supported')
+      store.state.errors = ['<script setup> is not supported']
+      return
     } else {
       return [`\nconst ${COMP_IDENTIFIER} = {}`, undefined]
     }
