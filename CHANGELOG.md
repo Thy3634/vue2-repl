@@ -1,5 +1,11 @@
 # vue2-repl
 
+## 0.2.0
+
+### Minor Changes
+
+- 18482a1: feat: 支持 import css 和 json
+
 ## 0.1.2
 
 ### Patch Changes
