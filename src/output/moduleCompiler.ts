@@ -132,7 +132,16 @@ function processModule(
     // import * as ok from 'foo' --> ok -> __import_foo__
     if (node.type === 'ImportDeclaration') {
       const source = node.source.value
-      if (source.startsWith('./')) {
+      if (source.endsWith('.css')) {
+        s.overwrite(node.start!, node.end!, `if(true){
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = ${source.startsWith('http') ? `'${source}'` : `import.meta.resolve('${source}')`};
+          document.head.appendChild(link);
+        }`)
+      } else if (source.endsWith('.json')) {
+        s.overwrite(node.start!, node.end!, `const ${node.specifiers[0].local.name} = await (await fetch(${source.startsWith('http') ? `'${source}'` : `import.meta.resolve('${source}'))`})).json()`)
+      } else if (source.startsWith('./')) {
         const importId = defineImport(node, node.source.value)
         for (const spec of node.specifiers) {
           if (spec.type === 'ImportSpecifier') {
@@ -255,7 +264,7 @@ function processModule(
   }
 
   // 4. convert dynamic imports
-  ;(walk as any)(ast, {
+  ; (walk as any)(ast, {
     enter(node: Node, parent: Node) {
       if (node.type === 'Import' && parent.type === 'CallExpression') {
         const arg = parent.arguments[0]

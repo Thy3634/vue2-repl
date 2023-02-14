@@ -1,4 +1,22 @@
 # vue2-repl
+[![npm version][npm-version-src]][https://www.npmjs.com/package/vue2-repl]
+
+## features
+
+- comile vue2 sfc and js
+- you could import css, and it would be converted into a `<link/>`
+
+```js
+import 'package/style.css'
+import 'http://127.0.0.1/style.css'
+```
+
+- yoou could import json, and it would be fetch
+
+```js
+import data from 'package/mock.json'
+import data2 from 'https://vuetify.cn/manifest.json'
+```
 
 Vue2 SFC REPL as a Vue 3 component. 
 
