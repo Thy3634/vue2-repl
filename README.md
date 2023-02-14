@@ -1,5 +1,6 @@
 # vue2-repl
-[![npm version][npm-version-src]][https://www.npmjs.com/package/vue2-repl]
+![npm](https://img.shields.io/npm/v/vue2-repl)
+
 
 ## features
 
