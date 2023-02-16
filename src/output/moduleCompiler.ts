@@ -132,7 +132,12 @@ function processModule(
     // import * as ok from 'foo' --> ok -> __import_foo__
     if (node.type === 'ImportDeclaration') {
       const source = node.source.value
-      if (source.endsWith('.css')) {
+      if (source.endsWith('?raw')) {
+        const url = source.slice(0, -4)
+        s.overwrite(node.start!, node.end!, `const ${node.specifiers[0].local.name} = await (await fetch(${url.startsWith('http') ? `'${url}'` : `import.meta.resolve('${url}')`})).text()`)
+      } else if (source.endsWith('.css')) {
+        // import 'foo/style.css' --> <link rel="stylesheet" href="" />, href is import.meta.resolve('foo/style.css')
+        // import 'http://127.0.0.1/style.css' --> <link rel="stylesheet" href="http://127.0.0.1/style.css" />
         s.overwrite(node.start!, node.end!, `if(true){
           const link = document.createElement('link');
           link.rel = 'stylesheet';
@@ -140,7 +145,11 @@ function processModule(
           document.head.appendChild(link);
         }`)
       } else if (source.endsWith('.json')) {
+        // import data from 'foo/data.json' --> const data = await (await fetch(import.meta.resolve('foo/data.json'))).json()
         s.overwrite(node.start!, node.end!, `const ${node.specifiers[0].local.name} = await (await fetch(${source.startsWith('http') ? `'${source}'` : `import.meta.resolve('${source}'))`})).json()`)
+      } else if (source.match(/(\.(ttf|otf|woff2?|eot|jpe?g|png|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|mp4|webm|ogg|mp3|wav|flac|aac)|\?url)$/)) {
+        // import font from 'foo/font.ttf' --> const font = import.meta.resolve('foo/font.ttf')
+        s.overwrite(node.start!, node.end!, `const ${node.specifiers[0].local.name} = ${source.startsWith('http') ? `'${source}'` : `import.meta.resolve('${source}')`}`)
       } else if (source.startsWith('./')) {
         const importId = defineImport(node, node.source.value)
         for (const spec of node.specifiers) {
