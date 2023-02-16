@@ -27,10 +27,7 @@
     "prepublish": "pnpm build && pnpm changeset version",
     "publish": "pnpm changeset publish"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Thy3634/vue2-repl.git"
-  },
+  "repository": "https://github.com/Thy3634/vue2-repl.git",
   "author": "Thy3634",
   "license": "MIT",
   "bugs": {
