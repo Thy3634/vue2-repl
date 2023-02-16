@@ -5,12 +5,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     target: 'esnext',
-    lib: {
-      entry: './src/index.ts',
-      formats: ['es'],
-      fileName: 'vue2-repl',
-      name: 'Vue2Repl'
-    },
+    outDir: 'docs',
     rollupOptions: {
       external: ['vue', 'vue/compiler-sfc']
     }

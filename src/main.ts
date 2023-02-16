@@ -1,6 +1,6 @@
 import { createApp, h, watchEffect } from 'vue'
-import { Repl, ReplStore } from '../src'
-;(window as any).process = { env: {} }
+import { Repl, ReplStore } from '.'
+  ; (window as any).process = { env: {} }
 
 const App = {
   setup() {
