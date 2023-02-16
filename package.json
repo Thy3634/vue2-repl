@@ -4,7 +4,7 @@
   "description": "Vue3 component for editing Vue2 components",
   "main": "dist/vue2-repl.umd.js",
   "module": "dist/vue2-repl.mjs",
-  "packageManager": "pnpm@7.0.0+",
+  "packageManager": "pnpm@7.1.0",
   "files": [
     "dist"
   ],
