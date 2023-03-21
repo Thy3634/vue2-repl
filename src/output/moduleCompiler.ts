@@ -141,7 +141,7 @@ function processModule(
         s.overwrite(node.start!, node.end!, `if(true){
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = ${source.startsWith('http') ? `'${source}'` : `import.meta.resolve('${source}')`};
+          link.href = ${source.startsWith('http') || source.startsWith('/') ? `'${source}'` : `import.meta.resolve('${source}')`};
           document.head.appendChild(link);
         }`)
       } else if (source.endsWith('.json')) {

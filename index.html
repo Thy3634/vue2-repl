@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vue SFC Playground</title>
+  <title>Vue2 SFC Playground</title>
   <style>
     body {
       margin: 0;
@@ -14,7 +14,10 @@
     .vue-repl {
       height: 100vh;
     }
+
   </style>
+  <!-- ES Module Shims: Import maps polyfill for modules browsers without import maps support (all except Chrome 89+) -->
+  <script async src="https://unpkg.com/es-module-shims@1.5.5/dist/es-module-shims.wasm.js"></script>
   <script type="importmap">
     {
       "imports": {
